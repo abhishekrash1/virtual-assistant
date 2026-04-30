@@ -1,0 +1,35 @@
+import axios from 'axios';
+
+const key = "AIzaSyAmMxOfc26K6JWLOfubeWWwaMYbjLgnyJE";
+
+async function testAll() {
+    try {
+        console.log(`Listing available models...`);
+        const listUrl = `https://generativelanguage.googleapis.com/v1beta/models?key=${key}`;
+        const listRes = await axios.get(listUrl);
+        const models = listRes.data.models.map(m => m.name.replace('models/', ''));
+        
+        console.log(`Found ${models.length} models. Testing for generateContent...`);
+        
+        for (const model of models) {
+            try {
+                process.stdout.write(`Testing ${model}... `);
+                const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${key}`;
+                const res = await axios.post(url, {
+                    contents: [{ parts: [{ text: "hi" }] }]
+                }, { timeout: 5000 });
+                
+                if (res.status === 200) {
+                    console.log("✅ WORKING!");
+                    process.exit(0);
+                }
+            } catch (e) {
+                console.log(`❌ ${e.response?.status || 'Error'}`);
+            }
+        }
+    } catch (e) {
+        console.log(`Failed to list: ${e.message}`);
+    }
+}
+
+testAll();
