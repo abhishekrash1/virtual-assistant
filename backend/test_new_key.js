@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const key = "AIzaSyAmMxOfc26K6JWLOfubeWWwaMYbjLgnyJE";
+const key = "PASTE_YOUR_KEY_HERE";
 
 async function testAll() {
     try {
