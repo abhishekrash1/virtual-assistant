@@ -2,7 +2,7 @@ import axios from 'axios';
 import dotenv from 'dotenv';
 dotenv.config();
 
-const key = "AIzaSyChsQg-jWsorNE4HxrZJbW01zQmro4I-Vw";
+const key = "PASTE_YOUR_KEY_HERE";
 
 async function testMultipleModels() {
     const models = ["gemini-1.5-flash", "gemini-1.5-pro", "gemini-2.0-flash", "gemini-2.0-flash-lite-preview-02-05"];
